@@ -1,0 +1,14 @@
+home/.config/zsh/private.zsh
+
+# claude: only sync specific config files/dirs
+home/.claude/**
+!home/.claude/
+!home/.claude/CLAUDE.md
+!home/.claude/commands/
+!home/.claude/commands/**
+!home/.claude/agents/
+!home/.claude/agents/**
+!home/.claude/plugins/
+!home/.claude/plugins/**
+
+.DS_Store

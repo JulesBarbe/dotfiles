@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -70,7 +67,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git tmux brew macos themes)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -154,6 +151,7 @@ function glosa() {
     unfunction add_ref_if_new
 }
 
+# dotfiles 
 typeset -g DOTFILES_DIR="${DOTFILES_DIR:-$HOME/code/dotfiles}"
 
 dotsync() {

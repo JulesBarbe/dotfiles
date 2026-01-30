@@ -100,7 +100,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias gcaum="git commit -a -u -m"
+function gcaum() {
+    git add -A && git commit -m "$*"
+}
 
 # smart glola -> show *my* branches / commits + base branches
 function glosa() {

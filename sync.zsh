@@ -65,4 +65,3 @@ for src in "$src_root"/**/*(.DN); do
 done
 
 print -- "done: linked=$linked backed_up=$backed_up skipped=$skipped"
-

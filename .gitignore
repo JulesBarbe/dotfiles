@@ -4,11 +4,15 @@ home/.config/zsh/private.zsh
 home/.claude/**
 !home/.claude/
 !home/.claude/CLAUDE.md
-!home/.claude/commands/
-!home/.claude/commands/**
+!home/.claude/settings.json
 !home/.claude/agents/
 !home/.claude/agents/**
+!home/.claude/commands/
+!home/.claude/commands/**
 !home/.claude/plugins/
-!home/.claude/plugins/**
+!home/.claude/plugins/config.json
+!home/.claude/plugins/installed_plugins.json
+!home/.claude/plugins/known_marketplaces.json
+
 
 .DS_Store

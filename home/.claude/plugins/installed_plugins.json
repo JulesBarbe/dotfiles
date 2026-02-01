@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "plugins": {
+    "pr-review-toolkit@claude-code-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/Users/jules/.claude/plugins/cache/claude-code-plugins/pr-review-toolkit/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-10-27T15:22:46.006Z",
+        "lastUpdated": "2025-10-27T15:22:46.006Z",
+        "gitCommitSha": "52fea66ba5578428835e037bf9a4062fe356dbe2",
+        "isLocal": true
+      }
+    ],
+    "agent-sdk-dev@claude-code-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/Users/jules/.claude/plugins/cache/claude-code-plugins/agent-sdk-dev/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-10-27T15:22:46.006Z",
+        "lastUpdated": "2025-10-27T15:22:46.006Z",
+        "gitCommitSha": "52fea66ba5578428835e037bf9a4062fe356dbe2",
+        "isLocal": true
+      }
+    ]
+  }
+}

@@ -162,3 +162,21 @@ dotsync() {
   "$DOTFILES_DIR/sync.zsh" "$@"
 }
 
+# Toggle or set Claude Code Bedrock (CLAUDE_CODE_USE_BEDROCK).
+# Usage: bedrock [on|off]  — with no arg, toggles; with on|off, sets and reports.
+bedrock() {
+  local want
+  case "${1:l}" in
+    on|1)  want=1 ;;
+    off|0) want=0 ;;
+    '')    want=$(( 1 - ${CLAUDE_CODE_USE_BEDROCK:-0} )) ;;
+    *)     echo "bedrock: use 'on', 'off', or no arg to toggle" >&2; return 1 ;;
+  esac
+  export CLAUDE_CODE_USE_BEDROCK=$want
+  if (( want )); then
+    echo "Claude Code Bedrock: on"
+  else
+    echo "Claude Code Bedrock: off"
+  fi
+}
+

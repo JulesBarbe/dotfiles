@@ -162,21 +162,34 @@ dotsync() {
   "$DOTFILES_DIR/sync.zsh" "$@"
 }
 
-# Toggle or set Claude Code Bedrock (CLAUDE_CODE_USE_BEDROCK).
-# Usage: bedrock [on|off]  — with no arg, toggles; with on|off, sets and reports.
+# Toggle Claude Code between Bedrock (AWS) and Pro account.
+# Usage: bedrock [on|off]  — no arg toggles. State persists across new tabs.
 bedrock() {
+  local state_file="${XDG_STATE_HOME:-$HOME/.local/state}/bedrock-mode"
+  local current="on"
+  [[ -f "$state_file" ]] && current="$(<"$state_file")"
+
   local want
   case "${1:l}" in
-    on|1)  want=1 ;;
-    off|0) want=0 ;;
-    '')    want=$(( 1 - ${CLAUDE_CODE_USE_BEDROCK:-0} )) ;;
+    on|1)  want="on" ;;
+    off|0) want="off" ;;
+    '')    [[ "$current" == "on" ]] && want="off" || want="on" ;;
     *)     echo "bedrock: use 'on', 'off', or no arg to toggle" >&2; return 1 ;;
   esac
-  export CLAUDE_CODE_USE_BEDROCK=$want
-  if (( want )); then
-    echo "Claude Code Bedrock: on"
+
+  mkdir -p "${state_file:h}"
+  echo "$want" > "$state_file"
+
+  if typeset -f _apply_bedrock_mode &>/dev/null; then
+    _apply_bedrock_mode
   else
-    echo "Claude Code Bedrock: off"
+    echo "bedrock: _apply_bedrock_mode not found (private.zsh loaded?)" >&2
+  fi
+
+  if [[ "$want" == "on" ]]; then
+    echo "Claude Code: Bedrock (AWS)"
+  else
+    echo "Claude Code: Pro account"
   fi
 }
 

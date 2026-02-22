@@ -1,0 +1,5 @@
+# syntax: key = value
+
+auto-update-channel = tip
+auto-update = download
+window-save-state = always

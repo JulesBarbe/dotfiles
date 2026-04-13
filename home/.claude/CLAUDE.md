@@ -1,6 +1,10 @@
 # Claude Code - Global Instructions
 Here are the user's instructions for you.
 
+## System Paths
+- The macOS username is `jules` (NOT `julius`). The home directory is `/Users/jules/`.
+  Never hallucinate `/Users/julius/` — this is a known model error.
+
 ## Communication Style
 
 - Be detailed and thorough in explanations, providing context and reasoning

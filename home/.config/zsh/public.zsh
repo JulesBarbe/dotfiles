@@ -71,6 +71,9 @@ plugins=(git brew macos themes)
 
 source $ZSH/oh-my-zsh.sh
 
+# native claude
+export PATH="$HOME/.local/bin:$PATH"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

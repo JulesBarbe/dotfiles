@@ -107,6 +107,35 @@ function gcaum() {
     git add -A && git commit -m "$*"
 }
 
+_git_base_branch() {
+  local ref
+  ref=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||')
+  [[ -n "$ref" ]] && { echo "$ref"; return; }
+  for b in main master staging develop; do
+    git show-ref --verify --quiet "refs/remotes/origin/$b" 2>/dev/null && { echo "$b"; return; }
+  done
+  echo "main"
+}
+
+gdc() {
+  local ref="${1:-$(_git_base_branch)}"
+  [[ $# -gt 0 ]] && shift
+  git diff --color-moved "$ref"...HEAD "$@"
+}
+
+unalias gds 2>/dev/null
+gds() {
+  local ref="${1:-$(_git_base_branch)}"
+  [[ $# -gt 0 ]] && shift
+  git diff --stat "$ref"...HEAD "$@"
+}
+
+gdn() {
+  local ref="${1:-$(_git_base_branch)}"
+  [[ $# -gt 0 ]] && shift
+  git diff --name-status "$ref"...HEAD "$@"
+}
+
 # smart glola -> show *my* branches / commits + base branches
 function glosa() {
 

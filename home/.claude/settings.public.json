@@ -1,0 +1,94 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "WebSearch",
+      "WebFetch",
+      "mcp__obsidian__read_note",
+      "mcp__obsidian__write_note",
+      "mcp__obsidian__list_directory",
+      "mcp__obsidian__search_notes",
+      "mcp__obsidian__read_multiple_notes",
+      "mcp__obsidian__get_frontmatter",
+      "mcp__obsidian__update_frontmatter",
+      "mcp__obsidian__get_notes_info",
+      "mcp__obsidian__get_vault_stats",
+      "mcp__obsidian__list_all_tags",
+      "mcp__obsidian__patch_note"
+    ],
+    "deny": [
+      "Bash(*julius*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git stash:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git revert:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git restore:*)",
+      "Bash(git clean:*)",
+      "Bash(git tag -d:*)",
+      "Bash(git tag -D:*)",
+      "Bash(git branch -d:*)",
+      "Bash(git branch -D:*)",
+      "Bash(git worktree add:*)",
+      "Bash(git worktree remove:*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -r:*)",
+      "Bash(rmdir:*)",
+      "Bash(chmod -R:*)",
+      "Bash(chown -R:*)",
+      "Bash(chgrp -R:*)",
+      "Bash(mkfs:*)",
+      "Bash(dd:*)",
+      "Bash(shred:*)",
+      "Bash(truncate:*)",
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(poweroff:*)",
+      "Bash(halt:*)",
+      "Bash(systemctl:*)",
+      "Bash(service:*)",
+      "Bash(launchctl:*)",
+      "Bash(killall:*)",
+      "Bash(pkill:*)",
+      "Bash(kill -9:*)",
+      "Bash(passwd:*)",
+      "Bash(useradd:*)",
+      "Bash(userdel:*)",
+      "Bash(usermod:*)",
+      "Bash(visudo:*)"
+    ],
+    "ask": [],
+    "defaultMode": "default"
+  },
+  "model": "opus",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/obsidian-init.sh\"",
+            "statusMessage": "Setting up Obsidian vault integration"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {},
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium",
+  "verbose": true,
+  "preferredNotifChannel": "ghostty",
+  "skipAutoPermissionPrompt": true
+}

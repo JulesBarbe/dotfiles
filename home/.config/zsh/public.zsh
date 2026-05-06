@@ -74,6 +74,36 @@ source $ZSH/oh-my-zsh.sh
 # native claude
 export PATH="$HOME/.local/bin:$PATH"
 
+# assemble CLAUDE.md from public + private parts
+{
+  local pub="$HOME/.claude/CLAUDE.public.md"
+  local priv="$HOME/.claude/CLAUDE.private.md"
+  local out="$HOME/.claude/CLAUDE.md"
+  if [[ -f "$pub" ]]; then
+    rm -f "$out"  # avoid following stale symlinks back into the dotfiles repo
+    if [[ -f "$priv" ]]; then
+      cat "$pub" "$priv" > "$out"
+    else
+      cp "$pub" "$out"
+    fi
+  fi
+}
+
+# assemble settings.json from public + private parts (deep merge, private wins)
+{
+  local pub="$HOME/.claude/settings.public.json"
+  local priv="$HOME/.claude/settings.private.json"
+  local out="$HOME/.claude/settings.json"
+  if [[ -f "$pub" ]] && command -v jq >/dev/null 2>&1; then
+    rm -f "$out"
+    if [[ -f "$priv" ]]; then
+      jq -s '.[0] * .[1]' "$pub" "$priv" > "$out"
+    else
+      cp "$pub" "$out"
+    fi
+  fi
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

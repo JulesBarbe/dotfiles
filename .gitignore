@@ -3,16 +3,17 @@ home/.config/zsh/private.zsh
 # claude: only sync specific config files/dirs
 home/.claude/**
 !home/.claude/
-!home/.claude/CLAUDE.md
-!home/.claude/settings.json
-!home/.claude/agents/
-!home/.claude/agents/**
+!home/.claude/CLAUDE.public.md
+!home/.claude/CLAUDE.private.example.md
+!home/.claude/settings.public.json
+!home/.claude/statusline-command.sh
+!home/.claude/hooks/
+!home/.claude/hooks/**
 !home/.claude/commands/
 !home/.claude/commands/**
 !home/.claude/plugins/
 !home/.claude/plugins/config.json
 !home/.claude/plugins/installed_plugins.json
-!home/.claude/plugins/known_marketplaces.json
 
 
 .DS_Store

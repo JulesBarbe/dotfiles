@@ -7,3 +7,6 @@
 # export work_proxy="http://..."
 # alias workvpn="..."
 
+# obsidian vault path for claude code plans/dump integration
+# export OBSIDIAN_VAULT="$HOME/Documents/MyVault"
+

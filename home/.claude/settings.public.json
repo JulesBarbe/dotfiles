@@ -1,7 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(*)",
       "WebSearch",
       "WebFetch",
       "mcp__obsidian__read_note",
@@ -14,7 +13,61 @@
       "mcp__obsidian__get_notes_info",
       "mcp__obsidian__get_vault_stats",
       "mcp__obsidian__list_all_tags",
-      "mcp__obsidian__patch_note"
+      "mcp__obsidian__patch_note",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(which:*)",
+      "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(diff:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(tree:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(pwd)",
+      "Bash(env)",
+      "Bash(printenv:*)",
+      "Bash(basename:*)",
+      "Bash(dirname:*)",
+      "Bash(realpath:*)",
+      "Bash(readlink:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git blame:*)",
+      "Bash(git shortlog:*)",
+      "Bash(git stash list:*)",
+      "Bash(git config --get:*)",
+      "Bash(git config --list:*)",
+      "Bash(python -c:*)",
+      "Bash(python3 -c:*)",
+      "Bash(node -e:*)",
+      "Bash(jq:*)",
+      "Bash(yq:*)",
+      "Bash(npm list:*)",
+      "Bash(pip list:*)",
+      "Bash(pip show:*)",
+      "Bash(brew list:*)",
+      "Bash(brew info:*)",
+      "Bash(gh:*)",
+      "Bash(uv:*)",
+      "Bash(npx:*)",
+      "Bash(bq:*)"
     ],
     "deny": [
       "Bash(*julius*)",
@@ -36,12 +89,16 @@
       "Bash(git branch -D:*)",
       "Bash(git worktree add:*)",
       "Bash(git worktree remove:*)",
-      "Bash(rm -rf:*)",
-      "Bash(rm -r:*)",
-      "Bash(rmdir:*)",
-      "Bash(chmod -R:*)",
-      "Bash(chown -R:*)",
-      "Bash(chgrp -R:*)",
+      "Read(~/.ssh:*)",
+      "Edit(~/.ssh:*)",
+      "Write(~/.ssh:*)",
+      "Read(~/.aws:*)",
+      "Edit(~/.aws:*)",
+      "Write(~/.aws:*)",
+      "Edit(*.env:*)",
+      "Write(*.env:*)",
+      "Edit(~/.netrc:*)",
+      "Write(~/.netrc:*)",
       "Bash(mkfs:*)",
       "Bash(dd:*)",
       "Bash(shred:*)",
@@ -64,10 +121,21 @@
       "Bash(usermod:*)",
       "Bash(visudo:*)"
     ],
-    "ask": [],
+    "ask": [
+      "Bash(rm :*)",
+      "Bash(mv :*)",
+      "Bash(cp :*)",
+      "Bash(chmod :*)",
+      "Bash(chown :*)",
+      "Bash(mkdir :*)",
+      "Bash(touch :*)",
+      "Bash(curl:*)"
+    ],
     "defaultMode": "default"
   },
   "model": "opus",
+  "fileCheckpointingEnabled": true,
+  "autoCompactEnabled": true,
   "hooks": {
     "SessionStart": [
       {
@@ -76,6 +144,17 @@
             "type": "command",
             "command": "bash \"$HOME/.claude/hooks/obsidian-init.sh\"",
             "statusMessage": "Setting up Obsidian vault integration"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"BEFORE COMPACTING: 1) Run /dump to log all important context, decisions, architecture notes, and progress since last dump to Obsidian. 2) In your compaction summary, preserve: current task and progress, key decisions and their rationale, important file paths and changes made, any pending work or blockers, and the current plan if one exists.\"}}'",
+            "statusMessage": "Preparing context for compaction"
           }
         ]
       }

@@ -57,6 +57,13 @@ Projects/
 - **Reading the log for context:** When you need background on a project, read its `log.md` via `mcp__obsidian__read_note`. The log is append-only, so the most recent entries are at the bottom — read from the end for current context.
 - **Worktree context in log entries:** Each log heading includes a `\[context-label\]` prefix — the worktree directory name (or repo name if on the main working tree). When working in a worktree, prioritize entries tagged with your worktree name for the most relevant context. Entries tagged with the repo name are from the main working tree.
 
+## Bash Commands
+
+- **One command per Bash call.** No `&&`, `||`, `;`, `<()`, `$()` chaining that bundles multiple operations.
+- Permission patterns match the start of the command string — chained commands bypass checks for everything after the first command.
+- When you need multiple commands, make separate parallel Bash tool calls so each gets independently permission-checked.
+- For piping (e.g., `grep | wc -l`), prefer alternatives that avoid the pipe (e.g., `grep -c`) or accept the prompt.
+
 ## Comments
 
 - Minimal comments - only explain non-obvious logic

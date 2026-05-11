@@ -65,3 +65,8 @@ for src in "$src_root"/**/*(.DN); do
 done
 
 print -- "done: linked=$linked backed_up=$backed_up skipped=$skipped"
+
+if (( ! dry_run )) && command -v brew &>/dev/null && [[ -f "$HOME/.Brewfile" ]]; then
+  print -- "\ninstalling brew dependencies..."
+  brew bundle --global --no-lock
+fi

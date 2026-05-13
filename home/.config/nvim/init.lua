@@ -131,6 +131,17 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     branch = "master",
     dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      defaults = {
+        file_ignore_patterns = { "%.git/" },
+      },
+      pickers = {
+        find_files = { hidden = true },
+        live_grep = {
+          additional_args = { "--hidden" },
+        },
+      },
+    },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
       { "<leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
@@ -159,6 +170,18 @@ require("lazy").setup({
 
       -- per-server config via neovim 0.11+ native API
       vim.lsp.config("*", { capabilities = capabilities })
+      vim.lsp.config("pyright", {
+        on_init = function(client)
+          local venv_python = client.config.root_dir .. "/.venv/bin/python"
+          if vim.uv.fs_stat(venv_python) then
+            client.settings = vim.tbl_deep_extend("force", client.settings, {
+              python = { pythonPath = venv_python },
+            })
+            client:notify("workspace/didChangeConfiguration", { settings = client.settings })
+          end
+        end,
+      })
+
       vim.lsp.config("lua_ls", {
         settings = {
           Lua = {

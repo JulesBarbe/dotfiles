@@ -39,6 +39,7 @@
       "Bash(env)",
       "Bash(printenv:*)",
       "Bash(basename:*)",
+      "Bash(date:*)",
       "Bash(dirname:*)",
       "Bash(realpath:*)",
       "Bash(readlink:*)",

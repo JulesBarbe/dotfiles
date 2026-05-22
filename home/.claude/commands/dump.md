@@ -8,16 +8,18 @@ $ARGUMENTS is optional guidance for what to log. If empty, summarize the most si
 
 ## Steps
 
-1. Get the project name (worktree-safe — use git-common-dir to find the real repo root):
-   ```
-   basename "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)")" 2>/dev/null || basename "$(pwd)"
-   ```
+1. Get the project name (worktree-safe — use git-common-dir to find the real repo root).
+   Run these as **separate Bash calls** (no subshells or chaining):
+   - `git rev-parse --path-format=absolute --git-common-dir` → returns a path like `/Users/jules/code/myrepo/.git`
+   - From that output, strip the trailing `/.git` and take the last path component as the project name. Use `dirname` and `basename` as separate calls on the result.
+   - Fallback if not in a git repo: use `pwd` and take the last path component.
 
-2. Get the context label (worktree name or branch name for the log heading):
-   ```
-   basename "$(git rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null || basename "$(pwd)"
-   ```
-   This returns the worktree directory name when in a worktree, or the repo name when on the main working tree. Escape the brackets in the heading as `\[...\]` so Obsidian doesn't parse them as wikilinks.
+2. Get the context label (worktree directory name for the log heading).
+   Run as a **separate Bash call**:
+   - `git rev-parse --show-toplevel` → returns the working tree root
+   - Take the last path component as the context label via a separate `basename` call.
+   - Fallback: same as project name.
+   Escape the brackets in the heading as `\[...\]` so Obsidian doesn't parse them as wikilinks.
 
 3. Get the current timestamp via `date '+%Y-%m-%d %H:%M'`
 

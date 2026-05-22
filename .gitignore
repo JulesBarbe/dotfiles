@@ -13,7 +13,6 @@ home/.claude/**
 !home/.claude/commands/**
 !home/.claude/plugins/
 !home/.claude/plugins/config.json
-!home/.claude/plugins/installed_plugins.json
 
 
 .DS_Store

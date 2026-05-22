@@ -9,6 +9,9 @@ brew "node"
 
 cask "ghostty"
 
+# needed by claude code lsp plugins
+brew "pyright"
+
 # needed by nvim
 brew "ripgrep"
 brew "fd"

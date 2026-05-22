@@ -70,3 +70,50 @@ if (( ! dry_run )) && command -v brew &>/dev/null && [[ -f "$HOME/.Brewfile" ]];
   print -- "\ninstalling brew dependencies..."
   brew bundle --global
 fi
+
+# npm globals needed by claude code lsp plugins
+if (( ! dry_run )) && command -v npm &>/dev/null; then
+  local -a npm_globals=(typescript typescript-language-server)
+  local missing=()
+  for pkg in "${npm_globals[@]}"; do
+    if ! npm list -g "$pkg" &>/dev/null; then
+      missing+=("$pkg")
+    fi
+  done
+  if (( ${#missing} )); then
+    print -- "\ninstalling npm globals: ${missing[*]}..."
+    npm install -g "${missing[@]}"
+  fi
+fi
+
+# install enabled claude code plugins that aren't already installed
+if (( ! dry_run )) && command -v claude &>/dev/null && command -v jq &>/dev/null; then
+  local settings="$src_root/.claude/settings.public.json"
+  if [[ -f "$settings" ]]; then
+    local -a wanted=(${(f)"$(jq -r '.enabledPlugins // {} | keys[]' "$settings")"})
+    if (( ${#wanted} )); then
+      local installed_file="$HOME/.claude/plugins/installed_plugins.json"
+      for plugin in "${wanted[@]}"; do
+        if [[ ! -f "$installed_file" ]] || ! jq -e --arg p "$plugin" '.plugins[$p]' "$installed_file" &>/dev/null; then
+          print -- "installing claude plugin: $plugin..."
+          claude plugin install "$plugin" 2>&1
+        fi
+      done
+    fi
+  fi
+fi
+
+# ensure obsidian mcp server is configured in claude code
+if (( ! dry_run )) && command -v jq &>/dev/null && [[ -f "$HOME/.claude.json" ]]; then
+  if [[ "$(jq -r '.mcpServers.obsidian // empty' "$HOME/.claude.json")" == "" ]]; then
+    print -- "\nprovisioning obsidian mcp server in ~/.claude.json..."
+    local tmp="$(mktemp)"
+    jq --arg home "$HOME" '.mcpServers.obsidian = {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@bitbonsai/mcpvault@latest", ($home + "/Documents/Scality")],
+      "env": {}
+    }' "$HOME/.claude.json" > "$tmp"
+    mv "$tmp" "$HOME/.claude.json"
+  fi
+fi

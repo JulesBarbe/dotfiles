@@ -166,7 +166,13 @@
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
-  "enabledPlugins": {},
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "explanatory-output-style@claude-plugins-official": true
+  },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
   "verbose": true,

@@ -16,6 +16,8 @@ Here are the user's instructions for you.
 ## Code Changes
 
 - When accept edits mode is off, assume I want to see changes before they're written
+- Unless I explicitly ask you to skip it (or accept edits mode is on), give me context and explanation before making code changes — the reasoning, trade-offs, and approach. Calibrate the depth to my apparent familiarity with the codebase, technologies, and patterns involved: explain more where I seem less comfortable, less where I clearly know it
+- Unless I explicitly say otherwise, code, technology choices, and software/architecture design should strive to be industry-standard, maintainable, and well written. Use web search during the design process to verify current best practices, and keep checking against that baseline during development so the implementation doesn't drift from it
 - Use small, iterative workflow - each change should be small and logically contained
 - Strive for the smallest, most elegant solution - avoid over-engineering and OOP bloat
 - Be defensive with error handling - handle edge cases, validate inputs, fail gracefully

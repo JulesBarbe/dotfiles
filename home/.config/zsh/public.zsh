@@ -129,6 +129,8 @@ export VISUAL='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias sz="source ~/.zshrc"
+
 function gcaum() {
     git add -A && git commit -m "$*"
 }

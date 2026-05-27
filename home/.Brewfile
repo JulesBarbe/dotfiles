@@ -17,3 +17,6 @@ brew "ripgrep"
 brew "fd"
 brew "fzf"
 brew "tree-sitter-cli"
+
+# middle click
+cask "middleclick"

@@ -26,6 +26,11 @@ Here are the user's instructions for you.
 - If the changes are very redundant and mindless (e.g. updating tests, renaming variables, etc.), you should batch as many changes as you can instead
 - This doesn't include updating plans; when updating plans, you can make large changes.
 
+### Commit Flow
+- Develop features as a sequence of commit-sized steps. Each step should be a logical, working unit of progress — it compiles/passes and stands on its own — not a micro-atomic split and not one big end-of-feature dump.
+- As we work, keep changes organized along these commit boundaries and tell me when a step is complete and ready to commit, with a suggested commit message.
+- I run the commits myself — do NOT commit or stage on my behalf unless I explicitly ask. Your job is to identify and surface the boundaries, not to execute them.
+
 ## Saving information
 - When important information is uncovered, or complex features are added, ask me if I want it to be added to the project's .claude
 - If I say yes, update the CLAUDE.md. If it doesn't exist, ask me permission and create it.

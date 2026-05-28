@@ -27,9 +27,11 @@ Here are the user's instructions for you.
 - This doesn't include updating plans; when updating plans, you can make large changes.
 
 ### Commit Flow
-- Develop features as a sequence of commit-sized steps. Each step should be a logical, working unit of progress — it compiles/passes and stands on its own — not a micro-atomic split and not one big end-of-feature dump.
-- As we work, keep changes organized along these commit boundaries and tell me when a step is complete and ready to commit, with a suggested commit message.
-- I run the commits myself — do NOT commit or stage on my behalf unless I explicitly ask. Your job is to identify and surface the boundaries, not to execute them.
+- When planning or developing, maintain a tasklist where each code-change task corresponds roughly to one commit — a semantically coherent unit of progress.
+- A commit is defined by its semantics, not its size: it represents a new feature, an addition, or a logical step toward a larger goal. Large is fine (hundreds of lines), but it must be one coherent idea, not a grab-bag.
+- For big features, evolve iteratively the way a human would: build a skeleton or smaller version of a component first, then flesh it out in later tasks/commits — don't try to land the whole thing fully-formed in one go.
+- Each task/step should be a working unit — it compiles/passes and stands on its own.
+- Tell me when a step is complete and ready to commit, with a suggested commit message. I run the commits myself — do NOT commit or stage on my behalf unless I explicitly ask. Your job is to identify and surface the boundaries, not to execute them.
 
 ## Saving information
 - When important information is uncovered, or complex features are added, ask me if I want it to be added to the project's .claude

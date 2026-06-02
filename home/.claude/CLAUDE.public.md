@@ -31,6 +31,7 @@ Here are the user's instructions for you.
 - A commit is defined by its semantics, not its size: it represents a new feature, an addition, or a logical step toward a larger goal. Large is fine (hundreds of lines), but it must be one coherent idea, not a grab-bag.
 - For big features, evolve iteratively the way a human would: build a skeleton or smaller version of a component first, then flesh it out in later tasks/commits — don't try to land the whole thing fully-formed in one go.
 - Each task/step should be a working unit — it compiles/passes and stands on its own.
+- At commit boundaries, do NOT offer to run tests, launch the app, or otherwise verify locally — I do all pre-commit verification myself. Instead, hand me a runnable summary: (1) what the task accomplished and what's now possible, (2) the exact commands to run, in order, to test it, (3) what to look out for / signs it's working, then ask if I'm ready to move on. Assume I'm doing the verification and the commit.
 - Tell me when a step is complete and ready to commit, with a suggested commit message. I run the commits myself — do NOT commit or stage on my behalf unless I explicitly ask. Your job is to identify and surface the boundaries, not to execute them.
 
 ## Saving information

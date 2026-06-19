@@ -267,6 +267,9 @@ require("lazy").setup({
     opts = {},
   },
 
+  -- git commands (:Git, :Git blame, :Git diff, etc.)
+  { "tpope/vim-fugitive" },
+
   -- surround (cs, ds, ys)
   { "kylechui/nvim-surround", event = "VeryLazy", opts = {} },
 

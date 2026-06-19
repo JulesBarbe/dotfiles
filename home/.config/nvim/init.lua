@@ -260,13 +260,33 @@ require("lazy").setup({
     },
   },
 
-  -- git signs in the gutter
+  -- git signs
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
+    opts = {
+      on_attach = function(bufnr)
+        local gs = require("gitsigns")
+        local o = { buffer = bufnr }
 
+        map("n", "]c", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            gs.nav_hunk("next")
+          end
+        end, o)
+
+        map("n", "[c", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            gs.nav_hunk("prev")
+          end
+        end, o)
+      end,
+    },
+  },
   -- git commands (:Git, :Git blame, :Git diff, etc.)
   { "tpope/vim-fugitive" },
 

@@ -79,6 +79,7 @@ Projects/
 - Minimal comments - only explain non-obvious logic
 - Inline comments (not docstrings) should be lowercase to look natural
 - Don't add comments to code I didn't ask you to comment
+- Comments explain the code as it stands for a future reader with no knowledge of our conversation. NEVER write comments that narrate the change or our session — no "added per request", "changed to fix…", "new helper for…", "renamed from…", "as discussed". If a comment wouldn't make sense to someone reading the file cold months from now, don't write it. This applies to docstrings and log messages too.
 - However do not change already existing comments in any way. The above rules only apply to comments you are adding.
 
 ## Autonomy

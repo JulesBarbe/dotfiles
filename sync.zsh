@@ -86,20 +86,40 @@ if (( ! dry_run )) && command -v npm &>/dev/null; then
   fi
 fi
 
-# install enabled claude code plugins that aren't already installed
+# register marketplaces and install enabled plugins, from merged public + private settings
 if (( ! dry_run )) && command -v claude &>/dev/null && command -v jq &>/dev/null; then
-  local settings="$src_root/.claude/settings.public.json"
-  if [[ -f "$settings" ]]; then
-    local -a wanted=(${(f)"$(jq -r '.enabledPlugins // {} | keys[]' "$settings")"})
-    if (( ${#wanted} )); then
-      local installed_file="$HOME/.claude/plugins/installed_plugins.json"
-      for plugin in "${wanted[@]}"; do
-        if [[ ! -f "$installed_file" ]] || ! jq -e --arg p "$plugin" '.plugins[$p]' "$installed_file" &>/dev/null; then
-          print -- "installing claude plugin: $plugin..."
-          claude plugin install "$plugin" 2>&1
-        fi
-      done
+  local pub_settings="$src_root/.claude/settings.public.json"
+  local priv_settings="$HOME/.claude/settings.private.json"
+  if [[ -f "$pub_settings" ]]; then
+    local merged
+    if [[ -f "$priv_settings" ]]; then
+      merged="$(jq -s '.[0] * .[1]' "$pub_settings" "$priv_settings")"
+    else
+      merged="$(<"$pub_settings")"
     fi
+
+    # register any marketplaces declared but not yet known (private ones live in settings.private.json)
+    local known_file="$HOME/.claude/plugins/known_marketplaces.json"
+    local -a markets=(${(f)"$(jq -r '.extraKnownMarketplaces // {} | keys[]' <<<"$merged")"})
+    for mkt in "${markets[@]}"; do
+      if [[ ! -f "$known_file" ]] || ! jq -e --arg m "$mkt" '.[$m]' "$known_file" &>/dev/null; then
+        local src="$(jq -r --arg m "$mkt" '.extraKnownMarketplaces[$m].source | (.url // .repo // .directory // empty)' <<<"$merged")"
+        if [[ -n "$src" ]]; then
+          print -- "adding claude marketplace: $mkt ($src)..."
+          claude plugin marketplace add "$src" 2>&1
+        fi
+      fi
+    done
+
+    # install enabled plugins that aren't already installed
+    local -a wanted=(${(f)"$(jq -r '.enabledPlugins // {} | keys[]' <<<"$merged")"})
+    local installed_file="$HOME/.claude/plugins/installed_plugins.json"
+    for plugin in "${wanted[@]}"; do
+      if [[ ! -f "$installed_file" ]] || ! jq -e --arg p "$plugin" '.plugins[$p]' "$installed_file" &>/dev/null; then
+        print -- "installing claude plugin: $plugin..."
+        claude plugin install "$plugin" 2>&1
+      fi
+    done
   fi
 fi
 

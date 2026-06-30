@@ -41,6 +41,8 @@ public/private split — public files are tracked; private files are local-only.
 
 **settings.json** — `settings.public.json` deep-merged with `settings.private.json` (private wins). requires `jq`.
 
+**private plugins/skills** — declare an internal marketplace in `settings.private.json` under `extraKnownMarketplaces` and enable its plugins under `enabledPlugins` (`plugin@marketplace`). `dotsync` registers any unknown marketplace (`claude plugin marketplace add`) and installs enabled plugins, reading the merged public+private settings — so private entries never touch the tracked repo. copy `settings.private.example.json` to `~/.claude/settings.private.json` for the shape.
+
 **obsidian integration** — plans and logs stored in an obsidian vault. set `OBSIDIAN_VAULT` in `private.zsh`. a `SessionStart` hook auto-configures `plansDirectory` per project; no-op if unset.
 
 **other:** `/dump` command (log to obsidian), statusline script (dir, branch, model, context %, cost).

@@ -76,11 +76,15 @@ Projects/
 
 ## Comments
 
-- Minimal comments - only explain non-obvious logic
-- Inline comments (not docstrings) should be lowercase to look natural
-- Don't add comments to code I didn't ask you to comment
-- Comments explain the code as it stands for a future reader with no knowledge of our conversation. NEVER write comments that narrate the change or our session — no "added per request", "changed to fix…", "new helper for…", "renamed from…", "as discussed". If a comment wouldn't make sense to someone reading the file cold months from now, don't write it. This applies to docstrings and log messages too.
-- However do not change already existing comments in any way. The above rules only apply to comments you are adding.
+- Comments are a last resort, not a default. Most code should carry none. Only add one when the code genuinely can't speak for itself: a non-obvious constraint, a subtle invariant, a "why it must be this way" that isn't visible from the code.
+- Comments may (and should) express INTENTION: what this is for, why it must hold. But only intention that stands on its own in the current state of the codebase. A future reader with zero knowledge of our conversation must find it useful and correct.
+- NEVER tie a comment to the act of changing the code or to context that isn't in the file. No narrating the diff, the session, or a decision: no "added per request", "changed to fix...", "new helper for...", "renamed from...", "as discussed", "now handles...", "switched to...". If a comment only makes sense to someone who watched me write it, it must not exist.
+- No LLM-speak, anywhere. No hedging ("this should generally"), no self-narration ("here we...", "we now..."), no ceremonial framing ("it's worth noting", "importantly,"), no restating the code in prose. Technical and direct.
+- NEVER use em dashes in comments or docstrings. Use commas, colons, parens, or two short clauses instead.
+- Inline comments: terse and telegraphic. Drop filler connectives ("we", "this", "because", "the"), lean on commas/colons, keep the load-bearing nouns and the *why*. "list not tuple: caller mutates in place", not "this needs to be a list because the caller mutates it". Shortened, not cryptic: real words, just no filler. All lowercase (inline only; docstrings keep normal capitalization).
+- Docstrings and block comments: fuller sentences, but still lean, telegraphic, and technical. State what it does, the non-obvious contract, and any invariant. Don't restate the signature or pad with framing.
+- Don't add comments to code I didn't ask you to comment.
+- Do NOT change comments that already exist in the file. These rules govern only comments I add.
 
 ## Autonomy
 

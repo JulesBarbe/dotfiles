@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "corporate-agent-hub": {
+      "source": {
+        "source": "git",
+        "url": "git@github.com:scality/corporate-agent-hub.git"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "some-private-plugin@corporate-agent-hub": true
+  }
+}

@@ -178,5 +178,6 @@
   "effortLevel": "medium",
   "verbose": true,
   "preferredNotifChannel": "ghostty",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "cleanupPeriodDays": 99999
 }

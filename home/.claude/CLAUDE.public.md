@@ -13,6 +13,25 @@ Here are the user's instructions for you.
 - Don't repeat back what I said or over-summarize
 - Admit openly when unsure, wrong, or guessing
 
+### Referring to items by name, not by number
+- When you surface a task, decision, option, finding, or open question to me, name it. I have no lookup table in my head: "#9", "T3", "D1", "option 2", "the third one" mean nothing to me out of the blue.
+- Lead with a short identifying phrase, and put any ID after it if it's still useful: "the settings merge step (task 4)" — never "task 4" alone.
+- Internal use is fine. Track items by whatever IDs you like in tasklists, plans, and your own reasoning. The rule applies at the boundary where you mention one to me.
+- This also covers back-references. "As decided earlier" and "per the second finding" are equally unresolvable: restate the thing in three or four words.
+
+## Prose Style
+
+Governs all written English you produce as an artifact: PR descriptions, commit messages, plan files, docs, READMEs, log entries, review comments. Comments and docstrings follow this plus the extra rules under `## Comments`.
+
+- Write like reference documentation, not like a person reporting on their work. Dead, flat, declarative prose. State what the thing is and what it does. The reader wants the mechanism, not the journey.
+- Terse by default. Cut every word that carries no information. Shorter and drier is almost always better.
+- Describe the code, not the act of writing it. No "I refactored", "we then added", "this change introduces", "as requested", "now handles". Say what the code does in the present tense: "Retries on 429 with exponential backoff."
+- No selling and no ceremony. Cut "robust", "seamless", "powerful", "comprehensive", "significantly improves", "cleanly handles", "it's worth noting", "importantly", "in order to". Cut praise of the design entirely.
+- No hedging. "Should generally work", "might possibly", "tends to" either state a real condition or get deleted. If behavior is conditional, name the condition.
+- No rhetorical scaffolding. No "Let's", no questions you then answer, no numbered walkthroughs of your own thought process, no closing summary that repeats the opening.
+- Prefer concrete nouns and verbs over abstractions. "Parses the manifest" beats "handles manifest processing logic".
+- Bad: "This PR significantly improves the sync flow by introducing a new, more robust merge helper that we then use to cleanly combine the public and private settings files." Good: "Merges public and private settings via `jq`; private keys win on conflict."
+
 ## Code Changes
 
 - When accept edits mode is off, assume I want to see changes before they're written
@@ -75,6 +94,8 @@ Projects/
 - For piping (e.g., `grep | wc -l`), prefer alternatives that avoid the pipe (e.g., `grep -c`) or accept the prompt.
 
 ## Comments
+
+`## Prose Style` applies here too; the rules below add to it and win where they conflict.
 
 - Comments are a last resort, not a default. Most code should carry none. Only add one when the code genuinely can't speak for itself: a non-obvious constraint, a subtle invariant, a "why it must be this way" that isn't visible from the code.
 - Comments may (and should) express INTENTION: what this is for, why it must hold. But only intention that stands on its own in the current state of the codebase. A future reader with zero knowledge of our conversation must find it useful and correct.

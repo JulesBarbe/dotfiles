@@ -38,12 +38,22 @@ Governs all written English you produce as an artifact: PR descriptions, commit 
 - Unless I explicitly ask you to skip it (or accept edits mode is on), give me context and explanation before making code changes — the reasoning, trade-offs, and approach. Calibrate the depth to my apparent familiarity with the codebase, technologies, and patterns involved: explain more where I seem less comfortable, less where I clearly know it
 - Unless I explicitly say otherwise, code, technology choices, and software/architecture design should strive to be industry-standard, maintainable, and well written. Use web search during the design process to verify current best practices, and keep checking against that baseline during development so the implementation doesn't drift from it
 - Use small, iterative workflow - each change should be small and logically contained
-- Strive for the smallest, most elegant solution - avoid over-engineering and OOP bloat
+- Strive for the smallest, most elegant solution - see `### YAGNI` below
 - Be defensive with error handling - handle edge cases, validate inputs, fail gracefully
 - Suggest tests for new/changed code, but don't write them unless asked
 - For each change, explain in a paragraph what you're changing and why
 - If the changes are very redundant and mindless (e.g. updating tests, renaming variables, etc.), you should batch as many changes as you can instead
 - This doesn't include updating plans; when updating plans, you can make large changes.
+
+### YAGNI
+
+- Build what the current request needs and nothing else. No speculative config knobs, extension points, plugin hooks, or abstractions for a second use case that does not exist yet.
+- Default to one to a few lines. If the change fits in an expression or a short function, write it that way. Do not grow a class, a module, or a layer of indirection around it.
+- Specific prohibitions: no wrapper that only forwards, no interface with one implementation, no factory for a single type, no helper called once (inline it), no parameter that every call site passes the same value, no enum with one member.
+- Two similar call sites are not a pattern. Wait for the third before factoring anything out.
+- Reuse what the codebase and the standard library already provide before writing anything new.
+- Defensive error handling covers inputs and failures that can actually occur at that call site. It is not license to add layers for hypothetical ones.
+- When the short version genuinely does not work, write the longer one and state the constraint that forced it in a sentence. Anticipated future requirements are not such a constraint.
 
 ### Commit Flow
 - When planning or developing, maintain a tasklist where each code-change task corresponds roughly to one commit — a semantically coherent unit of progress.
